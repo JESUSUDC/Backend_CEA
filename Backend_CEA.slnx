@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="../../../../../../Documents/Trabajos/Desarrollo Web/Trabajos - Jesus/Corte - 3/Backend_CEA/src/API/API.csproj" />
+    <Project Path="../../../../../../Documents/Trabajos/Desarrollo Web/Trabajos - Jesus/Corte - 3/Backend_CEA/src/Application/Application.csproj" />
+    <Project Path="../../../../../../Documents/Trabajos/Desarrollo Web/Trabajos - Jesus/Corte - 3/Backend_CEA/src/Domain/Domain.csproj" />
+    <Project Path="../../../../../../Documents/Trabajos/Desarrollo Web/Trabajos - Jesus/Corte - 3/Backend_CEA/src/Infrastructure/Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>

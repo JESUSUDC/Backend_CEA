@@ -1,0 +1,16 @@
+# Ignorar carpetas generadas por Visual Studio/IDEs
+.vs/
+bin/
+obj/
+temp/
+*.*proj.user
+
+# Ignorar archivos de paquetes
+packages/
+*.nupkg
+
+# Ignorar resultados de prueba
+TestResults/
+
+# Archivos de caché
+*.suo
