@@ -5,7 +5,6 @@ namespace Application.Dto.Command.Users
         Guid Id,
         string Name,
         string LastName,
-        string UserName,
-        string Password
+        string UserName
     ) : IRequest<ErrorOr<Unit>>;
 }

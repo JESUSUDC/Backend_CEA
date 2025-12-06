@@ -6,8 +6,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Application.Port.Out.Jwt;
-using Domain.ObjetosDeValor;
-using Domain.Usuarios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -43,7 +41,7 @@ namespace Infrastructure.Security.Jwt
             }
         }
 
-        public string GenerateJWT(Usuario usuario, int opcion)
+        public string GenerateJWT(User user, int opcion)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]!));
             var credentias = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -53,9 +51,10 @@ namespace Infrastructure.Security.Jwt
             // Crear la informacion del usuario para token
             var UserClaims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.Valor.ToString()),
-                new Claim(ClaimTypes.Name, usuario.Nombre),
-                new Claim(ClaimTypes.GivenName, usuario.Apellido)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.GivenName, user.LastName),
+                new Claim(ClaimTypes.Upn, user.UserName)
             };
 
             // Crear detalle del token
@@ -75,7 +74,7 @@ namespace Infrastructure.Security.Jwt
             return new JwtSecurityTokenHandler().WriteToken(jwtConfig);
         }
 
-        public DatosUsuarioDTO? DecodeJWT()
+        public UserResponse? DecodeJWT()
         {
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
 
@@ -87,19 +86,23 @@ namespace Infrastructure.Security.Jwt
             var userClaims = identity.Claims;
 
             var idClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
-            var nombreClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Name)?.Value;
-            var apellidoClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.GivenName)?.Value;
+            var nameClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Name)?.Value;
+            var lastNameClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.GivenName)?.Value;
+            var userNameClaim = userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Upn)?.Value;
+
 
             if (
                 Guid.TryParse(idClaim, out var id) &&
-                !string.IsNullOrEmpty(nombreClaim) &&
-                !string.IsNullOrEmpty(apellidoClaim)
+                !string.IsNullOrEmpty(nameClaim) &&
+                !string.IsNullOrEmpty(lastNameClaim) &&
+                !string.IsNullOrEmpty(userNameClaim)
             )
             {
-                return new DatosUsuarioDTO(
+                return new UserResponse(
                     id,
-                    nombreClaim,
-                    apellidoClaim
+                    nameClaim,
+                    lastNameClaim,
+                    userNameClaim
                 );
             }
 

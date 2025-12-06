@@ -23,14 +23,25 @@ namespace Domain.Users.Entity
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
         }
 
-        public void Update(string name, string lastName, string userName, string passwordHash)
+        public void Update(string name, string lastName, string userName)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
             LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
             UserName = userName ?? throw new ArgumentNullException(nameof(userName));
+            UpdateAt = DateTime.Now;
+        }
+
+        public void ResetPassword(string passwordHash)
+        {
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
             UpdateAt = DateTime.Now;
         }
+
+        public bool CheckPassword(string oldPassword)
+        {
+            return PasswordHash == oldPassword;
+        }
+
 
         public void AddCellphone(Cellphone cellphone)
         {

@@ -1,12 +1,12 @@
-﻿using Domain.ObjetosDeValor;
-using Domain.Usuarios;
+﻿using Application.Dto.Response.Users;
+using Domain.Users.Entity
 
 namespace Application.Port.Out.Jwt
 {
     public interface ITokenIssue
     {
         string EncryptSHA256(string texto);
-        string GenerateJWT(Usuario usuario, int opcion);
-        DatosUsuarioDTO? DecodeJWT();
+        string GenerateJWT(User usuario, int opcion);
+        UserResponse? DecodeJWT();
     }
 }
