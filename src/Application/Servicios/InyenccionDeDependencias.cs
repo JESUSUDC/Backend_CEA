@@ -1,4 +1,5 @@
 ﻿using Application.comun.Behaviors;
+using Application.Port.Out.Jwt;
 using Application.Servicios;
 using Application.Utilidades;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,7 @@ namespace Application.Servicios
 
             servicios.AddHttpContextAccessor();
 
-            servicios.AddScoped<IGestionToken, GestionToken>();
+            servicios.AddScoped<ITokenIssue, GestionToken>();
 
             return servicios;
         }

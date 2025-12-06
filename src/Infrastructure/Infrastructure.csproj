@@ -21,4 +21,19 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Adapters\Database\Eloquent\Migrations\" />
+    <Folder Include="Adapters\Security\Password\" />
+    <Folder Include="Entrypoint\Rest\Cellphones\Controller\" />
+    <Folder Include="Entrypoint\Rest\Cellphones\Mapper\" />
+    <Folder Include="Entrypoint\Rest\Cellphones\Request\" />
+    <Folder Include="Entrypoint\Rest\Cellphones\Response\" />
+    <Folder Include="Entrypoint\Rest\Common\ErrorHandler\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Entrypoint\Rest\Users\Controller\" />
+    <Folder Include="Entrypoint\Rest\Users\Mapper\" />
+    <Folder Include="Entrypoint\Rest\Users\Response\" />
+    <Folder Include="Entrypoint\Rest\Users\Request\" />
+  </ItemGroup>
+
 </Project>

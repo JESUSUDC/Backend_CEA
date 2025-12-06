@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Celulares\" />
+    <Folder Include="Cellphones\Event\" />
+    <Folder Include="Cellphones\Exception\" />
+    <Folder Include="Cellphones\ValueObject\" />
+    <Folder Include="Cellphones\Service\" />
+    <Folder Include="Users\Event\" />
+    <Folder Include="Users\Exception\" />
+    <Folder Include="Users\Service\" />
+    <Folder Include="Users\ValueObject\" />
   </ItemGroup>
 
 </Project>
