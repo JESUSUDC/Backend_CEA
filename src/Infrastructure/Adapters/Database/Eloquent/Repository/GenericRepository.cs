@@ -1,5 +1,4 @@
-﻿
-
+﻿using Application.Port.Out.Generic;
 using Domain.Generics;
 using Infrastructure.Adapters.Database.Eloquent.UnitOfWork;
 
