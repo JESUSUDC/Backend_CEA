@@ -10,7 +10,7 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Id).HasConversion(
-                gene => gene.Valor,
+                gene => gene.Value,
                 valor => new UserId(valor));
 
             builder.Property(t => t.Name)

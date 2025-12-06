@@ -2,12 +2,12 @@ using Application.Servicios;
 using API.Extensiones;
 using API.Middlewares;
 using API.Servicios;
-using Infraestructura.Servicios;
+using Infrastructure.Servicios;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddPresentation(builder.Configuration)
-                .AddInfraestructura(builder.Configuration)
+                .AddInfrastructura(builder.Configuration)
                 .AddAplication();
 
 var environment = builder.Environment.EnvironmentName;

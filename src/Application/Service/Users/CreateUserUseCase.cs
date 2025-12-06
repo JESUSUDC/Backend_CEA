@@ -4,6 +4,7 @@ using Application.Port.In.Users;
 using Application.Port.Out.Jwt;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
+using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
@@ -26,16 +27,16 @@ namespace Application.Service.Users
             {
                 return Error.Conflict("Usuario.Encontrado", "Ya existe un usuario con ese nombre de usuario.");
             }
+
+            var newUser = new User(
+                   new UserId(Guid.NewGuid()),
+                   command.Name,
+                   command.LastName,
+                   command.UserName,
+                   _tokenIssue.EncryptSHA256(command.Password)
+            );
             
-            var newUser = new User
-            {
-                UserName = command.UserName,
-                Password = _tokenIssue.EncryptSHA256(command.Password), 
-                Email = command.Email,
-                FullName = command.FullName
-            };
-            
-            _userRepositoryPort.Add(newUser);
+            _userRepositoryPort.Create(newUser);
             
             await _unitOfWork.SaveChangesAsync();
             return Unit.Value;

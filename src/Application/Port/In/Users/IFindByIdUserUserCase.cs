@@ -6,6 +6,6 @@ namespace Application.Port.In.Users
 {
     public interface IFindByIdUserUserCase
     {
-        public Task<ErrorOr<UserResponse>> FindByIdUser(FinByIdUserQuery query);
+        public Task<ErrorOr<UserResponse>> FindByIdUser(FindByIdUserQuery query);
     }
 }

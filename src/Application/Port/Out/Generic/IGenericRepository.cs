@@ -1,4 +1,5 @@
 ﻿using Application.Port.Out.Generic;
+using Domain.Generics;
 
 namespace Application.Port.Out.Generic
 {

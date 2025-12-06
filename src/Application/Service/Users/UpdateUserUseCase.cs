@@ -4,6 +4,7 @@ using Application.Port.In.Users;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
 using Domain.Users.Entity;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Application.Service.Users
 {
@@ -20,12 +21,12 @@ namespace Application.Service.Users
 
         public async Task<ErrorOr<Unit>> UpdateUser(UpdateUserCommand command)
         {
-            if (await _userRepositoryPort.FindById(new UserId(comando.UserId)) is User user)
+            if (await _userRepositoryPort.FindById(new UserId(command.Id)) is not User user)
             {
                 return Error.NotFound("Usuario.Encontrado", "No se encontro el usuario.");
             }
 
-            if (await _userRepositoryPort.FindByUserName(command.UserName) is User user2 and user != user2)
+            if (await _userRepositoryPort.FindByUserName(command.UserName) is User user2 && !user.UserName.Equals(command.UserName))
             {
                 return Error.Conflict("Usuario.Encontrado", "Ya existe un usuario con ese nombre de usuario.");
             }
@@ -40,5 +41,6 @@ namespace Application.Service.Users
             await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
+
     }
 }

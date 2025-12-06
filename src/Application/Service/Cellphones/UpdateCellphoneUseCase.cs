@@ -1,8 +1,11 @@
 ﻿
+using Application.Dto.Command.Cellphones;
 using Application.Port.In.Cellphones;
 using Application.Port.Out.Cellphones;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
+using Domain.Cellphones.Entity;
+using Domain.Users.Entity;
 
 namespace Application.Service.Cellphones
 {
@@ -24,12 +27,12 @@ namespace Application.Service.Cellphones
 
         public async Task<ErrorOr<Unit>> UpdateCellphone(UpdateCellphoneCommand command)
         {
-            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(comando.Id)) is Cellphone cellphone)
+            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(command.Id)) is not Cellphone cellphone)
             {
                 return Error.NotFound("Celular.Encontrado", "No se encontro el celular.");
             }
 
-            if (await _userRepositoryPort.FindById(new UserId(comando.UserId)) is User user)
+            if (await _userRepositoryPort.FindById(new UserId(command.UserId)) is not User user)
             {
                 return Error.NotFound("Usuario.Encontrado", "No se encontro el usuario.");
             }

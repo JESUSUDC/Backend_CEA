@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Domain.Cellphones.Entity;
+using Domain.Users.Entity;
 
 namespace Infrastructure.Adapters.Database.Eloquent.Model
 {
@@ -10,11 +11,11 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Id).HasConversion(
-                gene => gene.Valor,
+                gene => gene.Value,
                 valor => new CellphoneId(valor));
 
             builder.Property(t => t.UserId).HasConversion(
-                gene => gene.Valor,
+                gene => gene.Value,
                 valor => new UserId(valor));
 
             // Basic identifiers

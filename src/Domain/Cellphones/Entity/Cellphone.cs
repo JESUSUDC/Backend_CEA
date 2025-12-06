@@ -1,4 +1,5 @@
 ﻿
+using Domain.Generics;
 using Domain.Users.Entity;
 
 namespace Domain.Cellphones.Entity

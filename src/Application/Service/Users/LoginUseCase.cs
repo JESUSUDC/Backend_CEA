@@ -12,29 +12,26 @@ namespace Application.Service.Users
     {
         public IUserRepositoryPort _userRepositoryPort;
         public ITokenIssue _tokenIssue;
-        public IUnitOfWork _unitOfWork;
 
-        public LoginUseCase(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue, IUnitOfWork unitOfWork)
+        public LoginUseCase(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue)
         {
             _userRepositoryPort = userRepositoryPort;
             _tokenIssue = tokenIssue;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<ErrorOr<LoginResponse>> Login(LoginQuery query)
         {
-            var encryptedPassword = _tokenIssue.EncryptSHA256(password);
-            var user = await _userRepositoryPort.Login(userName, encryptedPassword);
+            var encryptedPassword = _tokenIssue.EncryptSHA256(query.Password);
+            var user = await _userRepositoryPort.Login(query.Username, encryptedPassword);
             if (user is null)
             {
                 return Error.NotFound("Usuario.NoEncontrado", "No se encontró un usuario con las credenciales proporcionadas.");
             }
 
-            var response = new LoginResponse
-            {
-                Token = _tokenIssue.GenerateJWT(user, 1),
-                RefreshToken = _tokenIssue.GenerateJWT(user, 2)
-            };
+            var response = new LoginResponse(
+                _tokenIssue.GenerateJWT(user, 1),
+                _tokenIssue.GenerateJWT(user, 2)
+            );
 
             return response;
         }

@@ -1,21 +1,19 @@
-﻿using Aplicacion.Datos;
-using Dominio.Generos;
-using Dominio.Primitivos;
-using Infraestructura.Persistencia.Repositorios;
-using Infraestructura.Persistencia;
+﻿
+using Application.Port.Out.Cellphones;
+using Application.Port.Out.Jwt;
+using Application.Port.Out.UnitOfWork;
+using Application.Port.Out.Users;
+using Infrastructure.Adapters.Database.Eloquent.Repository;
+using Infrastructure.Adapters.Database.Eloquent.UnitOfWork;
+using Infrastructure.Security.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Dominio.Paises;
-using Dominio.Actores;
-using Dominio.Directores;
-using Dominio.Peliculas;
-using Dominio.Usuarios;
 
-namespace Infraestructura.Servicios
+namespace Infrastructure.Servicios
 {
     public static class InyeccionDeDependencias
     {
-        public static IServiceCollection AddInfraestructura(this IServiceCollection servicios, IConfiguration configuracion)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection servicios, IConfiguration configuracion)
         {
             servicios.AgregarPersistencias(configuracion);
             return servicios;
@@ -38,12 +36,12 @@ namespace Infraestructura.Servicios
             servicios.AddScoped<IUnitOfWork>(sp =>
                 sp.GetRequiredService<AplicacionContextoDb>());
 
-            servicios.AddScoped<Dominio.Generos.IRepositorioGenero, RepositorioGenero>();
-            servicios.AddScoped<Dominio.Paises.IRepositorioPais, RepositorioPais>();
-            servicios.AddScoped<IRepositorioActor, RepositorioActor>();
-            servicios.AddScoped<IRepositorioDirector, RepositorioDirector>();
-            servicios.AddScoped<IRepositorioPelicula, RepositorioPelicula>();
-            servicios.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+            servicios.AddHttpContextAccessor();
+
+            servicios.AddScoped<ITokenIssue, TokenIssue>();
+
+            servicios.AddScoped<ICellphoneRepositoryPort, CellphoneRepository>();
+            servicios.AddScoped<IUserRepositoryPort, UserRepository>();
 
             return servicios;
         }

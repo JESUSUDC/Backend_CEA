@@ -1,7 +1,6 @@
 ﻿using Application.comun.Behaviors;
 using Application.Port.Out.Jwt;
 using Application.Servicios;
-using Application.Utilidades;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Servicios
@@ -21,10 +20,6 @@ namespace Application.Servicios
             );
 
             servicios.AddValidatorsFromAssemblyContaining<ApplicationAssemblyReference>();
-
-            servicios.AddHttpContextAccessor();
-
-            servicios.AddScoped<ITokenIssue, GestionToken>();
 
             return servicios;
         }

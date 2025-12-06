@@ -8,31 +8,30 @@ namespace Application.Mapper
         public static CellphoneResponse Map(Cellphone cellphone)
         {
             if (cellphone == null) throw new ArgumentNullException(nameof(cellphone));
-            return new CellphoneResponse
-            {
-                Id = cellphone.Id.Value,
-                UserId = cellphone.UserId.Value,
-                Brand = cellphone.Brand,
-                Imei = cellphone.Imei,
-                Inches = cellphone.Inches,
-                Megapixels = cellphone.Megapixels,
-                CamerasCount = cellphone.CamerasCount,
-                RamGb = cellphone.RamGb,
-                PrimaryStorageGb = cellphone.PrimaryStorageGb,
-                SecondaryStorageGb = cellphone.SecondaryStorageGb,
-                OperatingSystem = cellphone.OperatingSystem,
-                Carrier = cellphone.Carrier,
-                BandTechnology = cellphone.BandTechnology,
-                HasWifi = cellphone.HasWifi,
-                HasBluetooth = cellphone.HasBluetooth,
-                HasNfc = cellphone.HasNfc,
-                HasFingerprint = cellphone.HasFingerprint,
-                HasInfrared = cellphone.HasInfrared,
-                CpuBrand = cellphone.CpuBrand,
-                CpuSpeedGhz = cellphone.CpuSpeedGhz,
-                HasWaterResistance = cellphone.HasWaterResistance,
-                SimCount = cellphone.SimCount
-            };
+            return new CellphoneResponse(
+                cellphone.Id.Value,
+                cellphone.UserId.Value,
+                cellphone.Brand,
+                cellphone.Imei,
+                cellphone.Inches,
+                cellphone.Megapixels,
+                cellphone.CamerasCount,
+                cellphone.RamGb,
+                cellphone.PrimaryStorageGb,
+                cellphone.SecondaryStorageGb,
+                cellphone.OperatingSystem,
+                cellphone.Carrier,
+                cellphone.BandTechnology,
+                cellphone.HasWifi,
+                cellphone.HasBluetooth,
+                cellphone.HasNfc,
+                cellphone.HasFingerprint,
+                cellphone.HasInfrared,
+                cellphone.CpuBrand,
+                cellphone.CpuSpeedGhz,
+                cellphone.HasWaterResistance,
+                cellphone.SimCount
+            );
         }
     }
 }

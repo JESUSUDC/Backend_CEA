@@ -1,10 +1,12 @@
 ﻿
 
 using Application.Dto.Command.Cellphones;
+using Application.Dto.Query.Cellphones;
 using Application.Dto.Response.Cellphones;
 using Application.Mapper;
 using Application.Port.In.Cellphones;
 using Application.Port.Out.Cellphones;
+using Domain.Cellphones.Entity;
 
 namespace Application.Service.Cellphones
 {
@@ -17,9 +19,9 @@ namespace Application.Service.Cellphones
             _cellphoneRepositoryPort = cellphoneRepositoryPort;
         }
 
-        public async Task<ErrorOr<CellphoneResponse>> FindByIdCellphone(CreateCellphoneCommand command)
+        public async Task<ErrorOr<CellphoneResponse>> FindByIdCellphone(FindByIdCellphoneQuery command)
         {
-            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(comando.Id)) is Cellphone cellphone)
+            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(command.Id)) is not Cellphone cellphone)
             {
                 return Error.NotFound("Celular.Encontrado", "No se encontro el celular.");
             }

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Application.Dto.Response.Users;
 using Application.Port.Out.Jwt;
+using Domain.Users.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -102,7 +104,8 @@ namespace Infrastructure.Security.Jwt
                     id,
                     nameClaim,
                     lastNameClaim,
-                    userNameClaim
+                    userNameClaim,
+                    []
                 );
             }
 

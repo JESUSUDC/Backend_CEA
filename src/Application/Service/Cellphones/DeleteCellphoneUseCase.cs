@@ -1,8 +1,10 @@
 ﻿
+using Application.Dto.Command.Cellphones;
 using Application.Port.In.Cellphones;
 using Application.Port.Out.Cellphones;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
+using Domain.Cellphones.Entity;
 
 namespace Application.Service.Cellphones
 {
@@ -17,9 +19,9 @@ namespace Application.Service.Cellphones
             _unitOfWork = unitOfWork;
         }
 
-        public Task<ErrorOr<Unit>> DeleteCellphone(DeleteCellphoneCommand command)
+        public async Task<ErrorOr<Unit>> DeleteCellphone(DeleteCellphoneCommand command)
         {
-            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(comando.Id)) is Cellphone cellphone)
+            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(command.Id)) is not Cellphone cellphone)
             {
                 return Error.NotFound("Celular.Encontrado", "No se encontro el celular.");
             }

@@ -1,5 +1,7 @@
 ﻿using Domain.Users.Entity;
 using Domain.Cellphones.Entity;
+using Domain.Shared;
+using Application.Port.Out.UnitOfWork;
 
 namespace Infrastructure.Adapters.Database.Eloquent.UnitOfWork
 {

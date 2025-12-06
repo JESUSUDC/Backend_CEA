@@ -3,7 +3,7 @@
 namespace Domain.Generics
 {
     public abstract class GenericEntity<TID> : AggregateRoot
-        where TID : IIdGenerico
+        where TID : IGenericId
     {
         
         public TID Id { get; protected set; } = default!;

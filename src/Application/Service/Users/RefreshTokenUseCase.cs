@@ -4,6 +4,7 @@ using Application.Dto.Response.Users;
 using Application.Port.In.Users;
 using Application.Port.Out.Jwt;
 using Application.Port.Out.Users;
+using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {

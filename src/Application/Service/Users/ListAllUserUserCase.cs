@@ -1,5 +1,6 @@
 ﻿
 using Application.Dto.Query.Users;
+using Application.Dto.Response.Users;
 using Application.Mapper;
 using Application.Port.In.Users;
 using Application.Port.Out.Users;
@@ -17,7 +18,7 @@ namespace Application.Service.Users
 
         public async Task<ErrorOr<IReadOnlyList<UserResponse>>> ListAllUsers(ListAllUserQuery query)
         {
-            var users = await _userRepositoryPort.ListAll();
+            var users = _userRepositoryPort.ListAll();
             var userResponses = users.Select(user => UserMapper.Map(user))
                 .ToList();
 

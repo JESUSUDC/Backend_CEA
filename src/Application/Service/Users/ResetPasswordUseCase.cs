@@ -4,10 +4,11 @@ using Application.Port.In.Users;
 using Application.Port.Out.Jwt;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
+using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
-    public class ResetPasswordUseCase : IRefreshTokenUseCase
+    public class ResetPasswordUseCase : IResetPasswordUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
         public ITokenIssue _tokenIssue;
@@ -20,9 +21,9 @@ namespace Application.Service.Users
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<Unit>> RefreshToken(ResetPasswordCommand command)
+        public async Task<ErrorOr<Unit>> ResetPassword(ResetPasswordCommand command)
         {
-            if (await _userRepositoryPort.FindById(new UserId(comando.UserId)) is User user)
+            if (await _userRepositoryPort.FindById(new UserId(command.Id)) is not User user)
             {
                 return Error.NotFound("Usuario.Encontrado", "No se encontro el usuario.");
             }

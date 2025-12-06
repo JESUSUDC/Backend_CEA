@@ -1,5 +1,4 @@
-﻿
-using Domain.Cellphones.Entity;
+﻿using Domain.Cellphones.Entity;
 using Domain.Generics;
 
 namespace Domain.Users.Entity
@@ -18,8 +17,8 @@ namespace Domain.Users.Entity
             : base(id)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
-            UserName = lastName ?? throw new ArgumentNullException(nameof(lastName));
-            Email = userName ?? throw new ArgumentNullException(nameof(userName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            UserName = userName ?? throw new ArgumentNullException(nameof(userName));
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
         }
 

@@ -15,7 +15,7 @@ namespace Application.Service.Users
             _tokenIssue = tokenIssue;
         }
 
-        public Task<ErrorOr<UserResponse>> Handle(UserDataQuery query)
+        public Task<ErrorOr<UserResponse>> UserData(UserDataQuery query)
         {
             if (_tokenIssue.DecodeJWT() is not UserResponse userData)
             {

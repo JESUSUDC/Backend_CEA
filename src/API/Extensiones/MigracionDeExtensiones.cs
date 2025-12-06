@@ -1,4 +1,5 @@
-﻿using Infraestructura.Persistencia;
+﻿
+using Infrastructure.Adapters.Database.Eloquent.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensiones

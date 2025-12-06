@@ -1,5 +1,6 @@
 ﻿
 
+using Domain.Generics;
 using Infrastructure.Adapters.Database.Eloquent.UnitOfWork;
 
 namespace Infrastructure.Adapters.Database.Eloquent.Repository
@@ -11,7 +12,7 @@ namespace Infrastructure.Adapters.Database.Eloquent.Repository
         protected readonly AplicacionContextoDb _contexto;
         protected readonly DbSet<T> _dbSet;
 
-        public RepositorioGenerico(AplicacionContextoDb contexto)
+        public GenericRepository(AplicacionContextoDb contexto)
         {
             _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));
             _dbSet = _contexto.Set<T>();

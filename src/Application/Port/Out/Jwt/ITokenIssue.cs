@@ -1,5 +1,5 @@
 ﻿using Application.Dto.Response.Users;
-using Domain.Users.Entity
+using Domain.Users.Entity;
 
 namespace Application.Port.Out.Jwt
 {

@@ -7,15 +7,13 @@ namespace Application.Mapper
     {
         public static UserResponse Map(User user)
         {
-            return new UserResponse
-            {
-                Id = user.Id.Value,
-                Name = user.Name,
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Cellphones = user.Cellphones.Map(cell => CellphoneMapper.Map(cell))
-            };
-
+            return new UserResponse(
+                user.Id.Value,
+                user.Name,
+                user.LastName,
+                user.UserName,
+                user.Cellphones.Select(cell => CellphoneMapper.Map(cell)).ToList()
+            );
         }
     }
 }

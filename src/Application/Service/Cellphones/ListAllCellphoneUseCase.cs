@@ -1,5 +1,6 @@
 ﻿
 using Application.Dto.Command.Cellphones;
+using Application.Dto.Query.Cellphones;
 using Application.Dto.Response.Cellphones;
 using Application.Mapper;
 using Application.Port.In.Cellphones;
@@ -16,13 +17,14 @@ namespace Application.Service.Cellphones
             _cellphoneRepositoryPort = cellphoneRepositoryPort;
         }
 
-        public async Task<ErrorOr<IReadOnlyList<CellphoneResponse>>> ListAllCellphone(CreateCellphoneCommand command)
+        public async Task<ErrorOr<IReadOnlyList<CellphoneResponse>>> ListAllCellphone(ListAllCellphoneQuery query)
         {
-            var cellphones = await _cellphoneRepositoryPort.ListAll()
-                .Select(cellphones => CellphoneMapper.Map(cell))
-                .ToList(); ;
+            var cellphones = _cellphoneRepositoryPort.ListAll()
+                .Select(cellphone => CellphoneMapper.Map(cellphone))
+                .ToList();
 
             return cellphones;
         }
+
     }
 }

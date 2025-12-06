@@ -2,8 +2,8 @@
 namespace Domain.Generics
 {
     public interface IGenericRepository<TID, T>
-        where TID : IIdGeneric
-        where T : EntidadGeneric<TID>
+        where TID : IGenericId
+        where T : GenericEntity<TID>
     {
         IQueryable<T> ListAll();
         Task<T?> FindById(TID id);

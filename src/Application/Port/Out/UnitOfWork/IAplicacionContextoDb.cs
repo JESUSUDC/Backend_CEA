@@ -1,5 +1,6 @@
 ﻿using Domain.Users.Entity;
 using Domain.Cellphones.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Port.Out.UnitOfWork
 {
