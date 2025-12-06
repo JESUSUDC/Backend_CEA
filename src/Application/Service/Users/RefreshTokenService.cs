@@ -3,29 +3,32 @@ using Application.Dto.Query.Users;
 using Application.Dto.Response.Users;
 using Application.Port.In.Users;
 using Application.Port.Out.Jwt;
-using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
+using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
-    public class LoginUseCase : ILoginUseCase
+    public class RefreshTokenService : IRefreshTokenUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
         public ITokenIssue _tokenIssue;
 
-        public LoginUseCase(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue)
+        public RefreshTokenService(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue)
         {
             _userRepositoryPort = userRepositoryPort;
             _tokenIssue = tokenIssue;
         }
 
-        public async Task<ErrorOr<LoginResponse>> Login(LoginQuery query)
+        public async Task<ErrorOr<LoginResponse>> RefreshToken(RefreshTokenQuery query)
         {
-            var encryptedPassword = _tokenIssue.EncryptSHA256(query.Password);
-            var user = await _userRepositoryPort.Login(query.Username, encryptedPassword);
-            if (user is null)
+            if (_tokenIssue.DecodeJWT() is not UserResponse UserData)
             {
-                return Error.NotFound("Usuario.NoEncontrado", "No se encontró un usuario con las credenciales proporcionadas.");
+                return Error.NotFound("Autenticacion.TokenNoEcontrado", "No se ha encontrado el token del usuario.");
+            }
+
+            if (await _userRepositoryPort.FindById(new UserId(UserData.Id)) is not User user)
+            {
+                return Error.NotFound("Usuario.NoEncontrado", "No se encontro el usuario.");
             }
 
             var response = new LoginResponse(
@@ -35,6 +38,5 @@ namespace Application.Service.Users
 
             return response;
         }
-
     }
 }

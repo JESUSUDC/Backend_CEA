@@ -29,11 +29,6 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.HasMany(t => t.Cellphones)
-                .WithOne()
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Property(t => t.CreateAt)
                 .IsRequired();
 

@@ -7,11 +7,11 @@ using Application.Port.Out.Users;
 
 namespace Application.Service.Users
 {
-    public class ListAllUserUserCase : IListAllUserUseCase
+    public class ListAllUserService : IListAllUserUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
 
-        public ListAllUserUserCase(IUserRepositoryPort userRepositoryPort)
+        public ListAllUserService(IUserRepositoryPort userRepositoryPort)
         {
             _userRepositoryPort = userRepositoryPort;
         }

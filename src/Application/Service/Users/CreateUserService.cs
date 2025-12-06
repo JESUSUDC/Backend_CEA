@@ -8,13 +8,13 @@ using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
-    public class CreateUserUseCase : ICreateUserUseCase
+    public class CreateUserService : ICreateUserUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
         public ITokenIssue _tokenIssue;
         public IUnitOfWork _unitOfWork;
 
-        public CreateUserUseCase(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue, IUnitOfWork unitOfWork)
+        public CreateUserService(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue, IUnitOfWork unitOfWork)
         {
             _userRepositoryPort = userRepositoryPort;
             _tokenIssue = tokenIssue;

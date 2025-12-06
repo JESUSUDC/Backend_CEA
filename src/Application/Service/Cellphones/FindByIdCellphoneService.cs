@@ -1,36 +1,32 @@
 ﻿
+
 using Application.Dto.Command.Cellphones;
+using Application.Dto.Query.Cellphones;
+using Application.Dto.Response.Cellphones;
+using Application.Mapper;
 using Application.Port.In.Cellphones;
 using Application.Port.Out.Cellphones;
-using Application.Port.Out.UnitOfWork;
-using Application.Port.Out.Users;
 using Domain.Cellphones.Entity;
 
 namespace Application.Service.Cellphones
 {
-    public class DeleteCellphoneUseCase : IDeleteCellphoneUseCase
+    public class FindByIdCellphoneService : IFindByIdCellphoneUseCase
     {
         public ICellphoneRepositoryPort _cellphoneRepositoryPort;
-        public IUnitOfWork _unitOfWork;
 
-        public DeleteCellphoneUseCase(ICellphoneRepositoryPort cellphoneRepositoryPort, IUnitOfWork unitOfWork)
+        public FindByIdCellphoneService(ICellphoneRepositoryPort cellphoneRepositoryPort)
         {
             _cellphoneRepositoryPort = cellphoneRepositoryPort;
-            _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<Unit>> DeleteCellphone(DeleteCellphoneCommand command)
+        public async Task<ErrorOr<CellphoneResponse>> FindByIdCellphone(FindByIdCellphoneQuery command)
         {
             if (await _cellphoneRepositoryPort.FindById(new CellphoneId(command.Id)) is not Cellphone cellphone)
             {
                 return Error.NotFound("Celular.Encontrado", "No se encontro el celular.");
             }
 
-            _cellphoneRepositoryPort.Delete(cellphone);
-
-            await _unitOfWork.SaveChangesAsync();
-
-            return Unit.Value;
+            return CellphoneMapper.Map(cellphone);
         }
     }
 }

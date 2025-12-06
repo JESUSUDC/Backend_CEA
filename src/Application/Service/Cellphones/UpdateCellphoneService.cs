@@ -9,13 +9,13 @@ using Domain.Users.Entity;
 
 namespace Application.Service.Cellphones
 {
-    public class CreateCellphoneUseCase : ICreateCellphoneUseCase
+    public class UpdateCellphoneService : IUpdateCellphoneUseCase
     {
         public ICellphoneRepositoryPort _cellphoneRepositoryPort;
         public IUserRepositoryPort _userRepositoryPort;
         public IUnitOfWork _unitOfWork;
 
-        public CreateCellphoneUseCase(
+        public UpdateCellphoneService(
             ICellphoneRepositoryPort cellphoneRepositoryPort,
             IUserRepositoryPort userRepositoryPort,
             IUnitOfWork unitOfWork)
@@ -25,15 +25,19 @@ namespace Application.Service.Cellphones
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<Unit>> CreateCellphone(CreateCellphoneCommand command)
+        public async Task<ErrorOr<Unit>> UpdateCellphone(UpdateCellphoneCommand command)
         {
+            if (await _cellphoneRepositoryPort.FindById(new CellphoneId(command.Id)) is not Cellphone cellphone)
+            {
+                return Error.NotFound("Celular.Encontrado", "No se encontro el celular.");
+            }
+
             if (await _userRepositoryPort.FindById(new UserId(command.UserId)) is not User user)
             {
                 return Error.NotFound("Usuario.Encontrado", "No se encontro el usuario.");
             }
 
-            var cellphone = new Cellphone(
-                new CellphoneId(Guid.NewGuid()),
+            cellphone.Update(
                 user.Id,
                 command.Brand,
                 command.Imei,
@@ -57,11 +61,10 @@ namespace Application.Service.Cellphones
                 command.SimCount
             );
 
-            _cellphoneRepositoryPort.Create(cellphone);
+            _cellphoneRepositoryPort.Update(cellphone);
             await _unitOfWork.SaveChangesAsync();
-            
+
             return Unit.Value;
         }
-
     }
 }

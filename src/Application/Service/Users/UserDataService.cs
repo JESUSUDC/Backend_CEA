@@ -6,11 +6,11 @@ using Application.Port.Out.Jwt;
 
 namespace Application.Service.Users
 {
-    public class UserDataUseCase : IUserDataUseCase
+    public class UserDataService : IUserDataUseCase
     {
         public ITokenIssue _tokenIssue;
 
-        public UserDataUseCase(ITokenIssue tokenIssue)
+        public UserDataService(ITokenIssue tokenIssue)
         {
             _tokenIssue = tokenIssue;
         }

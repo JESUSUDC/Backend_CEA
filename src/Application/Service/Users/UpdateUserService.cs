@@ -1,43 +1,46 @@
 ﻿
 using Application.Dto.Command.Users;
 using Application.Port.In.Users;
-using Application.Port.Out.Jwt;
 using Application.Port.Out.UnitOfWork;
 using Application.Port.Out.Users;
 using Domain.Users.Entity;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Application.Service.Users
 {
-    public class ResetPasswordUseCase : IResetPasswordUseCase
+    public class UpdateUserService : IUpdateUserUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
-        public ITokenIssue _tokenIssue;
         public IUnitOfWork _unitOfWork;
 
-        public ResetPasswordUseCase(IUserRepositoryPort userRepositoryPort, ITokenIssue tokenIssue, IUnitOfWork unitOfWork)
+        public UpdateUserService(IUserRepositoryPort userRepositoryPort, IUnitOfWork unitOfWork)
         {
             _userRepositoryPort = userRepositoryPort;
-            _tokenIssue = tokenIssue;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<Unit>> ResetPassword(ResetPasswordCommand command)
+        public async Task<ErrorOr<Unit>> UpdateUser(UpdateUserCommand command)
         {
             if (await _userRepositoryPort.FindById(new UserId(command.Id)) is not User user)
             {
                 return Error.NotFound("Usuario.Encontrado", "No se encontro el usuario.");
             }
 
-            if (!user.CheckPassword(_tokenIssue.EncryptSHA256(command.OldPassword)))
+            if (await _userRepositoryPort.FindByUserName(command.UserName) is User user2 && !user.UserName.Equals(command.UserName))
             {
-                return Error.Validation("Usuario.Contraseña", "La contraseña actual es incorrecta.");
+                return Error.Conflict("Usuario.Encontrado", "Ya existe un usuario con ese nombre de usuario.");
             }
 
-            user.ResetPassword(_tokenIssue.EncryptSHA256(command.NewPassword));
+            user.Update(
+                command.Name,
+                command.LastName,
+                command.UserName
+            );
 
             _userRepositoryPort.Update(user);
             await _unitOfWork.SaveChangesAsync();
             return Unit.Value;
         }
+
     }
 }

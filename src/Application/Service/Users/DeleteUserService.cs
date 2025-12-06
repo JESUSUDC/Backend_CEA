@@ -7,12 +7,12 @@ using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
-    public class DeleteUserUseCase : IDeleteUserUseCase
+    public class DeleteUserService : IDeleteUserUseCase
     {
         public IUserRepositoryPort _userRepositoryPort;
         public IUnitOfWork _unitOfWork;
 
-        public DeleteUserUseCase(IUserRepositoryPort userRepositoryPort, IUnitOfWork unitOfWork)
+        public DeleteUserService(IUserRepositoryPort userRepositoryPort, IUnitOfWork unitOfWork)
         {
             _userRepositoryPort = userRepositoryPort;
             _unitOfWork = unitOfWork;

@@ -8,11 +8,11 @@ using Domain.Users.Entity;
 
 namespace Application.Service.Users
 {
-    public class FindByIdUserUseCase : IFindByIdUserUserCase
+    public class FindByIdUserService : IFindByIdUserUserCase
     {
         public IUserRepositoryPort _userRepositoryPort;
 
-        public FindByIdUserUseCase(IUserRepositoryPort userRepositoryPort)
+        public FindByIdUserService(IUserRepositoryPort userRepositoryPort)
         {
             _userRepositoryPort = userRepositoryPort;
         }

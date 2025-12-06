@@ -8,11 +8,11 @@ using Application.Port.Out.Cellphones;
 
 namespace Application.Service.Cellphones
 {
-    public class ListAllCellphoneUseCase : IListAllCellphoneUseCase
+    public class ListAllCellphoneService : IListAllCellphoneUseCase
     {
         public ICellphoneRepositoryPort _cellphoneRepositoryPort;
 
-        public ListAllCellphoneUseCase(ICellphoneRepositoryPort cellphoneRepositoryPort)
+        public ListAllCellphoneService(ICellphoneRepositoryPort cellphoneRepositoryPort)
         {
             _cellphoneRepositoryPort = cellphoneRepositoryPort;
         }

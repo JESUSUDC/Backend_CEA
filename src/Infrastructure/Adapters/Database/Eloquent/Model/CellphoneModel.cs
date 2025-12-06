@@ -21,44 +21,44 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
             // Basic identifiers
             builder.Property(t => t.Brand)
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.Imei)
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             // Display and camera
             builder.Property(t => t.Inches)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.Megapixels)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.CamerasCount)
-                .IsRequired(false);
+                .IsRequired();
 
             // Memory and storage
             builder.Property(t => t.RamGb)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.PrimaryStorageGb)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.SecondaryStorageGb)
-                .IsRequired(false);
+                .IsRequired();
 
             // Software / operator / radio tech
             builder.Property(t => t.OperatingSystem)
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.Carrier)
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.BandTechnology)
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             // Connectivity & sensors
             builder.Property(t => t.HasWifi)
@@ -85,10 +85,10 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
             // CPU
             builder.Property(t => t.CpuBrand)
                 .HasMaxLength(100)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.Property(t => t.CpuSpeedGhz)
-                .IsRequired(false);
+                .IsRequired();
 
             // Other
             builder.Property(t => t.HasWaterResistance)
@@ -101,6 +101,11 @@ namespace Infrastructure.Adapters.Database.Eloquent.Model
             // Indexes
             builder.HasIndex(t => t.Imei)
                 .HasDatabaseName("IX_Cellphones_Imei");
+
+            // Configuración explícita de la relación 1:N (Cellphone -> User)
+            builder.HasOne(t => t.User) // La propiedad de navegación en Cellphone
+                .WithMany(u => u.Cellphones) // La propiedad de navegación en User
+                .HasForeignKey(t => t.UserId); // **Usar la propiedad UserId ya mapeada/convertida**
 
             builder.Property(t => t.CreateAt)
                 .IsRequired();
