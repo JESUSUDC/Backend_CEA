@@ -1,0 +1,528 @@
+{
+	"info": {
+		"_postman_id": "914c35f5-7439-4568-9187-d8f67ece1a8c",
+		"name": "Backend_CEA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30413888",
+		"_collection_link": "https://lively-crescent-94225.postman.co/workspace/My-Workspace~babb1ad1-fee3-432e-8bcf-e52c952bfe85/collection/30413888-914c35f5-7439-4568-9187-d8f67ece1a8c?action=share&source=collection_link&creator=30413888"
+	},
+	"item": [
+		{
+			"name": "Autenticacion",
+			"item": [
+				{
+					"name": "IniciarSesion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json(); \r",
+									"pm.collectionVariables.set('token', data.token);\r",
+									"pm.collectionVariables.set('refreshToken', data.refreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"juan.perez\",\r\n    \"password\": \"NewP@ssw0rd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/autentication/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"autentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefrescarToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json(); \r",
+									"pm.collectionVariables.set('token', data.token);\r",
+									"pm.collectionVariables.set('refreshToken', data.refreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzViODliZS02MzRhLTQ3YmYtOWQ1Mi0wZGE2MTRjOWExNzgiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTc1ODM0MDM0NiwiZXhwIjoxNzYwOTMyMzQ2fQ.kxhI0KP79Iem746hUTKq0KE9jMiJpmLJgb98gL0xvH8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/autentication/refresh-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"autentication",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DatosUsuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/autentication/user-data",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"autentication",
+								"user-data"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "ListarTodos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPorId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/ee909407-49bc-4063-bdc5-ce72d8dfa3f1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"ee909407-49bc-4063-bdc5-ce72d8dfa3f1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Juan\",\r\n  \"lastName\": \"Pérez\",\r\n  \"userName\": \"juan.perez\",\r\n  \"password\": \"P@ssw0rd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"ee909407-49bc-4063-bdc5-ce72d8dfa3f1\",\r\n  \"name\": \"Juan\",\r\n  \"lastName\": \"Pérez2\",\r\n  \"userName\": \"juan.perez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/0d7a041b-1345-41fd-982a-b68dad00c92c",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"0d7a041b-1345-41fd-982a-b68dad00c92c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CambiarContraseña",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"ee909407-49bc-4063-bdc5-ce72d8dfa3f1\",\r\n  \"oldPassword\": \"P@ssw0rd!\",\r\n  \"newPassword\": \"NewP@ssw0rd!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/reset-password",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Celular",
+			"item": [
+				{
+					"name": "ListarTodos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cellphone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cellphone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPorId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cellphone/2febc5e2-1b59-4bfe-acc9-a245b0d142bb",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cellphone",
+								"2febc5e2-1b59-4bfe-acc9-a245b0d142bb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"a1b2c3d4-e5f6-47a8-90b1-23456789cdef\",\r\n  \"userId\": \"d3f8a5b2-1c2d-4e3f-8a9b-0123456789ab\",\r\n  \"brand\": \"Samsung\",\r\n  \"imei\": \"356938035643809\",\r\n  \"inches\": 6.5,\r\n  \"megapixels\": 108.0,\r\n  \"camerasCount\": 3,\r\n  \"ramGb\": 8,\r\n  \"primaryStorageGb\": 256,\r\n  \"secondaryStorageGb\": 512,\r\n  \"operatingSystem\": \"Android 14\",\r\n  \"carrier\": \"Unlocked\",\r\n  \"bandTechnology\": \"LTE/5G\",\r\n  \"hasWifi\": true,\r\n  \"hasBluetooth\": true,\r\n  \"hasNfc\": true,\r\n  \"hasFingerprint\": true,\r\n  \"hasInfrared\": false,\r\n  \"cpuBrand\": \"Exynos\",\r\n  \"cpuSpeedGhz\": 2.8,\r\n  \"hasWaterResistance\": true,\r\n  \"simCount\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cellphone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cellphone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"2febc5e2-1b59-4bfe-acc9-a245b0d142bb\",\r\n  \"userId\": \"ee909407-49bc-4063-bdc5-ce72d8dfa3f1\",\r\n  \"brand\": \"Samsung\",\r\n  \"imei\": \"356938035643809\",\r\n  \"inches\": 6.5,\r\n  \"megapixels\": 108.0,\r\n  \"camerasCount\": 3,\r\n  \"ramGb\": 8,\r\n  \"primaryStorageGb\": 256,\r\n  \"secondaryStorageGb\": 512,\r\n  \"operatingSystem\": \"Android 14\",\r\n  \"carrier\": \"Unlocked\",\r\n  \"bandTechnology\": \"LTE/5G\",\r\n  \"hasWifi\": true,\r\n  \"hasBluetooth\": true,\r\n  \"hasNfc\": true,\r\n  \"hasFingerprint\": true,\r\n  \"hasInfrared\": false,\r\n  \"cpuBrand\": \"Exynos\",\r\n  \"cpuSpeedGhz\": 2.8,\r\n  \"hasWaterResistance\": true,\r\n  \"simCount\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cellphone",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cellphone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cellphone/64035e1b-17a0-4005-ac3a-83a65c550e79",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cellphone",
+								"64035e1b-17a0-4005-ac3a-83a65c550e79"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
