@@ -159,5 +159,4 @@ Autenticación: la API usa JWT; obtenga token con el endpoint de autenticación 
 
 ---
 
-Si quieres, actualizo este README con versiones exactas (ej.: EF Core, MediatR, FluentValidation) leyendo `Directory.Build.props` o `*.csproj` del repo. ¿Deseas que lo haga?
 
